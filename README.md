@@ -1,18 +1,16 @@
 # Wazuh SIEM — Windows Security Monitoring
 
-Laboratório de SIEM utilizando Wazuh Manager + Wazuh Agent para
-monitoramento de eventos de segurança do Windows e detecção de
-criação de contas locais.
+Laboratório de SIEM utilizando **Wazuh Manager + Wazuh Agent** para monitoramento de eventos de segurança do Windows e detecção de criação de contas locais.
 
 ## Status do projeto
 
-🟢 V1 — Concluída  
-🟡 V2 — Planejada
+🟢 **V1 — Concluída**
 
-O ambiente base foi implementado e validado na V1.
+🟡 **V2 — Planejada**
 
-A expansão para a V2 está temporariamente pausada devido às
-limitações de recursos computacionais do ambiente de laboratório.
+A V1 do laboratório foi implementada e validada com sucesso.
+
+A expansão para a V2 está temporariamente pausada devido às limitações de recursos computacionais do ambiente de laboratório.
 
 ---
 
@@ -20,142 +18,67 @@ limitações de recursos computacionais do ambiente de laboratório.
 
 ## Objetivo
 
-Implementar uma arquitetura básica de SIEM capaz de coletar,
-processar e apresentar eventos de segurança provenientes de
-um endpoint Windows.
-
-## Ambiente
-
-- Wazuh Manager — Ubuntu Server
-- Wazuh Agent — Windows 10
-- Wazuh Dashboard
-- Windows Security Event Channel
+Implementar uma arquitetura básica de SIEM capaz de coletar, processar e apresentar eventos de segurança provenientes de um endpoint Windows.
 
 ## Caso de uso
 
 Detecção de criação de contas locais através do:
 
-Event ID 4720
-
-## Fluxo
-
-Windows 10
-↓
-Security Event Channel
-↓
-Wazuh Agent
-↓
-Wazuh Manager
-↓
-Regra de detecção
-↓
-Wazuh Dashboard
-↓
-Análise
-
-## Validação
-
-Foi utilizado o seguinte comando em ambiente controlado:
-
-net user prova_teste /add
-
-O Windows gerou o Event ID 4720 e o evento foi posteriormente
-recebido e apresentado pelo Wazuh.
+**Event ID 4720**
 
 ## Resultado
 
-A detecção foi validada com sucesso.
+Foi validada a seguinte cadeia:
 
-Foram identificados:
+```text
+Windows 10
+    ↓
+Security Event Channel
+    ↓
+Wazuh Agent
+    ↓
+Wazuh Manager
+    ↓
+Regra de detecção
+    ↓
+Wazuh Dashboard
+```
 
+Durante os testes, uma conta local foi criada em ambiente controlado e o evento correspondente foi identificado pelo Wazuh.
+
+## Principais tecnologias
+
+- Wazuh
+- SIEM
+- Windows 10
+- Ubuntu Server
+- Windows Security Event Channel
+- MITRE ATT&CK
 - Event ID 4720
-- Canal Security
-- Conta criada
-- Usuário responsável pela ação
-- Rule ID 60109
-- Level 8
-- Decoder windows_eventchannel
 
-## Troubleshooting
+## Documentação
 
-Durante a implementação, o agente estava ativo, porém o
-Event ID 4720 não aparecia no Dashboard.
+### V1 — Concluída
 
-A investigação identificou uma consulta `<query>` no
-`ossec.conf` que restringia a coleta do canal Security.
+[Ver documentação da V1](V1-Concluida/README.md)
 
-A configuração foi simplificada e o agente reiniciado.
+### V2 — Planejada
 
-Após a correção, os eventos passaram a ser recebidos normalmente.
+A V2 terá como objetivo expandir o laboratório com novos mecanismos de monitoramento e detecção.
 
----
+Funcionalidades planejadas:
 
-# V2 — Planejada
+- Sysmon;
+- Process Monitoring;
+- PowerShell Monitoring;
+- File Integrity Monitoring;
+- Authentication Monitoring;
+- Regras personalizadas;
+- Threat Hunting;
+- Active Response.
 
-A segunda versão pretende transformar o laboratório em um
-ambiente SOC mais completo.
+## Observação
 
-## Planejamento
+O projeto foi desenvolvido em ambiente virtualizado e controlado para fins educacionais.
 
-### 1. Sysmon
-⬜ Instalação e configuração
-
-### 2. Process Monitoring
-⬜ Detecção de criação de processos
-
-### 3. PowerShell
-⬜ Monitoramento de execução
-⬜ Detecções relacionadas
-
-### 4. FIM
-⬜ File Integrity Monitoring
-⬜ Alteração de arquivos
-⬜ Criação de arquivos
-
-### 5. Authentication Monitoring
-⬜ Event ID 4624
-⬜ Event ID 4625
-⬜ Event ID 4740
-
-### 6. Custom Rules
-⬜ Criação de regras próprias
-⬜ Aumento de severidade
-⬜ Correlação de eventos
-
-### 7. MITRE ATT&CK
-⬜ Expansão dos casos de uso
-⬜ T1136.001
-⬜ T1098.007
-⬜ Outras técnicas
-
-### 8. Threat Hunting
-⬜ Criação de hipóteses
-⬜ Investigação de eventos
-⬜ Construção de timelines
-
-### 9. Active Response
-⬜ Resposta automática
-⬜ Bloqueio de indicadores
-⬜ Testes controlados
-
----
-
-# Roadmap
-
-V1
-├── Wazuh Manager
-├── Windows Agent
-├── Security Event Channel
-├── Event ID 4720
-├── Dashboard
-└── Troubleshooting
-        ↓
-V2
-├── Sysmon
-├── Process Monitoring
-├── FIM
-├── Authentication
-├── Custom Rules
-├── MITRE ATT&CK
-├── Threat Hunting
-└── Active Response
+A limitação atual de recursos computacionais levou à pausa temporária da expansão do laboratório. A V1 permanece como uma PoC funcional e documentada.
